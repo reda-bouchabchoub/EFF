@@ -118,3 +118,50 @@ function App() {
 }
 
 export default App;
+
+Question 4: Composant de recherche par service 💖
+
+// composant3.js
+import React, { useState } from 'react';
+
+function Composant3({ salaries }) {
+  const [serviceRecherche, setServiceRecherche] = useState('');
+  const [resultats, setResultats] = useState([]);
+
+  const handleRecherche = () => {
+    const filtered = salaries.filter(salarie => 
+      salarie.service?.nonser.toLowerCase().includes(serviceRecherche.toLowerCase())
+    );
+    setResultats(filtered);
+  };
+
+  return (
+    <div>
+      <h2>Recherche par service</h2>
+      <div>
+        <input
+          type="text"
+          value={serviceRecherche}
+          onChange={(e) => setServiceRecherche(e.target.value)}
+          placeholder="Entrez le nom du service"
+        />
+        <button onClick={handleRecherche}>Rechercher</button>
+      </div>
+*
+      {resultats.length > 0 ? (
+        <ul>
+          {resultats.map(salarie => (
+            <li key={salarie._id}>
+              {salarie.nomsal} {salarie.prenomsal} - {salarie.fonction}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Aucun salarié n'est affecté à ce service</p>
+      )}
+    </div>
+  );
+}
+
+export default Composant3;
+
