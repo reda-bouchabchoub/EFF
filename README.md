@@ -88,3 +88,33 @@ function Composant1() {
 }
 
 export default Composant1;
+
+Question 2: Initialisation du state salaries 🙌
+// App.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function App() {
+  const [salaries, setSalaries] = useState([]);
+
+  useEffect(() => {
+    const fetchSalaries = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/salaries');
+        setSalaries(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des salariés:', error);
+      }
+    };
+*
+    fetchSalaries();
+  }, []);
+
+  return (
+    <div className="App">
+      {/* Autres composants */}
+    </div>
+  );
+}
+
+export default App;
