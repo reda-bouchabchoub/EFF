@@ -164,4 +164,31 @@ function Composant3({ salaries }) {
 }
 
 export default Composant3;
+00000000000000000
+function App() {
+  const [salaries, setSalaries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    axios.get('http://localhost:8000/salaries')
+      .then(response => {
+        setSalaries(response.data);
+        setError(null);
+      })
+      .catch(err => {
+        setError(err.message);
+        console.error('Error fetching data:', err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Chargement en cours...</div>;
+  }
+
+  if (error) {
+    return <div>Erreur: {error}</div>;
+  }
